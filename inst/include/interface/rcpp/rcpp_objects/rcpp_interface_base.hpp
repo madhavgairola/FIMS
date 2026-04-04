@@ -115,13 +115,9 @@ uint32_t Parameter::id_g = 0;
  */
 inline std::string sanitize_val(double x) {
   if (std::isnan(x)) {
-    return "\"NaN\"";
+    return "null";
   } else if (std::isinf(x)) {
-    if (x > 0) {
-      return "\"Infinity\"";
-    } else {
-      return "\"-Infinity\"";
-    }
+    return "null";
   }
   std::ostringstream ss;
   ss << x;
@@ -630,7 +626,7 @@ class FIMSRcppInterfaceBase {
     } else if (value == -std::numeric_limits<double>::infinity()) {
       ss << "\"-Infinity\"";
     } else if (value != value) {
-      ss << "\"NaN\"";
+      ss << "null";
     } else {
       // Set precision (R default is 16)
       ss << std::fixed << std::setprecision(16) << value;
